@@ -2,10 +2,16 @@
 <html ng-app="MyApp">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
 	<title>Bill Share</title>
 	<script src="angular-1.0.2.min.js"></script>
+	<link rel="stylesheet" href="handheld.css"/>
+	<link media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" href="handheld.css" type="text/css" rel="stylesheet" />
 	<style>
+	table { width: 100%; }
+	td { width: 50%; vertical-align: top; }
 	textarea { width: 100%; height: 10em; }
+	* { padding: 0 !important; margin: 0 !important; }
 	</style>
 	<script>
 		var app = angular.module('MyApp', [])
@@ -108,8 +114,20 @@
 	</script>
 </head>
 <body ng-controller="AppController">
-	Enter the bill details below. One item per line, first word is the amount, second word is the person's name. "all", "shared" and "tip" will be shared equally between everybody.
-	<textarea ng-model="text"></textarea>
+	Enter the bill details below. One item per line, first word is the amount, second word is the person's name. "all", "shared" and "tip" will be shared equally between everybody.<br>
+	<table>
+		<tr>
+			<td>
+				<textarea ng-model="text"></textarea>
+			</td>
+			<td>
+				<div ng-repeat="person in persons">
+					{{person.name}}: {{person.getTotal() | currency}}
+				</div>
+				<div>Total: {{getTotal() | currency}}</div>
+			</td>
+		</tr>
+	</table>
 	<input type="checkbox" ng-model="service_charge"> plus service charge
 	<input ng-model="service_charge_percent" size="2">%
 	<br>
@@ -118,10 +136,5 @@
 	<br>
 	<input type="checkbox" ng-model="smart_numbers"> smart recognize numbers
 	<br>
-	<hr>
-	<div ng-repeat="person in persons">
-		{{person.name}}: {{person.getTotal() | currency}}
-	</div>
-	<div>Total: {{getTotal() | currency}}</div>
 </body>
 </html>
