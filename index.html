@@ -14,6 +14,7 @@
 	* { padding: 0 !important; margin: 0 !important; }
 	</style>
 	<script>
+		var is_iOs = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent)
 		var app = angular.module('MyApp', [])
 		AppController.$inject = ['$scope']
 		function AppController(scope) {
@@ -108,7 +109,7 @@
 			scope.service_charge_percent = 10
 			scope.gst = true
 			scope.gst_percent = 7
-			scope.smart_numbers = true
+			scope.smart_numbers = !is_iOs
 			scope.text = '15 tom\n10 andras\n3.5 tom\n2 andras\n12 all\n0.48 tip'
 		}
 	</script>
